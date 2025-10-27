@@ -38,7 +38,7 @@ export function initContact(containerId = "contactContainer") {
 
         <!-- Colonne droite -->
         <div class="col-lg-7 col-md-6 contact-right">
-          <div class="contact-card p-5 rounded-4 shadow-lg bg-white">
+          <div class="contact-card p-5 rounded-4 shadow-lg bg-white position-relative">
             <h4 class="fw-bold mb-4 text-primary"><i class="bi bi-send-fill me-2"></i>Envoyer un message</h4>
             <form id="contactForm" novalidate class="needs-validation">
               <div class="row g-3">
@@ -66,7 +66,7 @@ export function initContact(containerId = "contactContainer") {
                   <div class="invalid-feedback">Le message ne peut pas être vide.</div>
                 </div>
               </div>
-              <button type="submit" class="btn btn-gradient w-100 mt-4 py-2 fw-semibold">
+              <button type="submit" id="submitBtn" class="btn btn-gradient w-100 mt-4 py-2 fw-semibold">
                 <i class="bi bi-envelope-paper-heart me-2"></i>Envoyer le message
               </button>
             </form>
@@ -81,27 +81,39 @@ export function initContact(containerId = "contactContainer") {
   const textarea = form.querySelector("#message");
   const charCount = form.querySelector("#charCount");
   const alertContainer = container.querySelector("#contactAlert");
+  const submitBtn = form.querySelector("#submitBtn");
 
-  // === Gestion compteur caractères ===
+  // Désactive le redimensionnement du textarea
+  textarea.style.resize = "none";
+
+  // === Compteur caractères ===
   textarea.addEventListener("input", () => {
     const len = textarea.value.length;
     charCount.textContent = `${len} / 1000 caractères`;
     charCount.classList.toggle("text-danger", len > 900);
   });
 
-  // === Envoi du message avec EmailJS ===
+  // === Initialisation EmailJS (une seule fois) ===
+  if (typeof emailjs !== "undefined") {
+    emailjs.init("dlyngNhZw3_DMkbcz"); // ta clé publique
+  } else {
+    console.error("⚠️ EmailJS non chargé. Vérifie le <script> CDN avant contact.js");
+  }
+
+  // === Envoi du message ===
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     form.classList.remove("was-validated");
+
     if (!form.checkValidity()) {
       form.classList.add("was-validated");
       return;
     }
 
-    try {
-      // ⚙️ Initialise EmailJS (à faire une seule fois)
-      emailjs.init("dlyngNhZw3_DMkbcz"); // 👉 remplace par ta clé publique EmailJS
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = `<span class="spinner-border spinner-border-sm me-2"></span>Envoi en cours...`;
 
+    try {
       await emailjs.send("service_aohpei2", "template_mt64nof", {
         from_name: form.user_name.value,
         reply_to: form.user_email.value,
@@ -111,13 +123,18 @@ export function initContact(containerId = "contactContainer") {
       });
 
       alertContainer.innerHTML = `
-        <div class="alert alert-success mt-3">✅ Message envoyé avec succès ! Merci pour votre contact.</div>`;
+        <div class="alert alert-success mt-3 animate__animated animate__fadeIn">
+          ✅ Message envoyé avec succès ! Merci pour votre contact.
+        </div>`;
       form.reset();
       charCount.textContent = "0 / 1000 caractères";
     } catch (err) {
       console.error(err);
       alertContainer.innerHTML = `
         <div class="alert alert-danger mt-3">❌ Une erreur est survenue. Veuillez réessayer plus tard.</div>`;
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = `<i class="bi bi-envelope-paper-heart me-2"></i>Envoyer le message`;
     }
   });
 }
