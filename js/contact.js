@@ -1,5 +1,6 @@
 /*
-  contact.js — Section Contact pro en 2 colonnes
+  contact.js — Section Contact Pro avec EmailJS
+  (fonctionne sans backend)
 */
 
 export function initContact(containerId = "contactContainer") {
@@ -10,10 +11,10 @@ export function initContact(containerId = "contactContainer") {
     <section class="contact-wrapper container py-5">
       <div class="row align-items-stretch g-4">
 
-        <!-- Colonne gauche : Infos de contact -->
+        <!-- Colonne gauche -->
         <div class="col-lg-5 col-md-6 contact-left p-4 rounded-4 shadow-lg bg-gradient">
           <h3 class="fw-bold text-white mb-4"><i class="bi bi-chat-dots-fill me-2"></i>Entrons en contact</h3>
-          <p class="text-light mb-4">Disponible pour des collaborations, projets ou opportunités professionnelles.</p>
+          <p class="text-light mb-4">Disponible pour toute collaboration, alternance ou projet digital.</p>
 
           <div class="contact-info-item mb-3">
             <i class="bi bi-telephone-fill text-warning me-3 fs-5"></i>
@@ -32,40 +33,36 @@ export function initContact(containerId = "contactContainer") {
             <a href="https://github.com/sloreus10" target="_blank" class="social-btn github">
               <i class="bi bi-github"></i><span>@sloreus10</span>
             </a>
-            <a href="https://twitter.com/sloreus10" target="_blank" class="social-btn twitter">
-              <i class="bi bi-twitter-x"></i><span>@sloreus10</span>
-            </a>
-            <a href="https://instagram.com/sloreastar_47" target="_blank" class="social-btn instagram">
-              <i class="bi bi-instagram"></i><span>@sloreastar_47</span>
-            </a>
-            <a href="https://tiktok.com/sloreastar" target="_blank" class="social-btn tiktok">
-              <i class="bi bi-tiktok"></i><span>@sloreastar</span>
-            </a>
-            <a href="https://facebook.com/sloreastar" target="_blank" class="social-btn facebook">
-              <i class="bi bi-facebook"></i><span>@sloreastar</span>
-            </a>
           </div>
         </div>
 
-        <!-- Colonne droite : Formulaire -->
+        <!-- Colonne droite -->
         <div class="col-lg-7 col-md-6 contact-right">
           <div class="contact-card p-5 rounded-4 shadow-lg bg-white">
             <h4 class="fw-bold mb-4 text-primary"><i class="bi bi-send-fill me-2"></i>Envoyer un message</h4>
-            <form novalidate class="needs-validation">
+            <form id="contactForm" novalidate class="needs-validation">
               <div class="row g-3">
                 <div class="col-md-6">
                   <label class="form-label fw-semibold">Nom complet</label>
-                  <input type="text" class="form-control" required placeholder="Votre nom complet">
+                  <input type="text" name="user_name" class="form-control" required placeholder="Votre nom complet">
                   <div class="invalid-feedback">Veuillez entrer votre nom.</div>
                 </div>
                 <div class="col-md-6">
                   <label class="form-label fw-semibold">Email</label>
-                  <input type="email" class="form-control" required placeholder="votre@email.com">
+                  <input type="email" name="user_email" class="form-control" required placeholder="votre@email.com">
                   <div class="invalid-feedback">Adresse email invalide.</div>
                 </div>
+
+                <div class="col-12">
+                  <label class="form-label fw-semibold">Objet</label>
+                  <input type="text" name="subject" class="form-control" required placeholder="Sujet de votre message">
+                  <div class="invalid-feedback">Veuillez indiquer un objet.</div>
+                </div>
+
                 <div class="col-12">
                   <label class="form-label fw-semibold">Message</label>
-                  <textarea class="form-control" rows="5" required placeholder="Votre message..."></textarea>
+                  <textarea id="message" name="message" class="form-control" rows="5" maxlength="1000" required placeholder="Votre message..."></textarea>
+                  <small id="charCount" class="text-muted d-block text-end mt-1">0 / 1000 caractères</small>
                   <div class="invalid-feedback">Le message ne peut pas être vide.</div>
                 </div>
               </div>
@@ -76,21 +73,23 @@ export function initContact(containerId = "contactContainer") {
             <div id="contactAlert" class="mt-3"></div>
           </div>
         </div>
-
       </div>
     </section>
   `;
 
-  // Gestion du formulaire
-  const form = container.querySelector("form");
+  const form = container.querySelector("#contactForm");
+  const textarea = form.querySelector("#message");
+  const charCount = form.querySelector("#charCount");
   const alertContainer = container.querySelector("#contactAlert");
 
-  const createAlert = (msg, type = "success") => `
-    <div class="alert alert-${type} alert-dismissible fade show mt-3" role="alert">
-      ${msg}
-      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    </div>`;
+  // === Gestion compteur caractères ===
+  textarea.addEventListener("input", () => {
+    const len = textarea.value.length;
+    charCount.textContent = `${len} / 1000 caractères`;
+    charCount.classList.toggle("text-danger", len > 900);
+  });
 
+  // === Envoi du message avec EmailJS ===
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     form.classList.remove("was-validated");
@@ -99,12 +98,26 @@ export function initContact(containerId = "contactContainer") {
       return;
     }
 
-    const overlay = document.getElementById("reloadOverlay");
-    overlay?.classList.add("show");
-    await new Promise(r => setTimeout(r, 800));
-    overlay?.classList.remove("show");
+    try {
+      // ⚙️ Initialise EmailJS (à faire une seule fois)
+      emailjs.init("dlyngNhZw3_DMkbcz"); // 👉 remplace par ta clé publique EmailJS
 
-    alertContainer.innerHTML = createAlert("✅ Message envoyé avec succès ! Merci pour votre contact.");
-    form.reset();
+      await emailjs.send("service_aohpei2", "template_mt64nof", {
+        from_name: form.user_name.value,
+        reply_to: form.user_email.value,
+        subject: form.subject.value,
+        message: form.message.value,
+        date: new Date().toLocaleString("fr-FR")
+      });
+
+      alertContainer.innerHTML = `
+        <div class="alert alert-success mt-3">✅ Message envoyé avec succès ! Merci pour votre contact.</div>`;
+      form.reset();
+      charCount.textContent = "0 / 1000 caractères";
+    } catch (err) {
+      console.error(err);
+      alertContainer.innerHTML = `
+        <div class="alert alert-danger mt-3">❌ Une erreur est survenue. Veuillez réessayer plus tard.</div>`;
+    }
   });
 }

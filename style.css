@@ -845,23 +845,18 @@ button.btn-info:focus-visible {
   background: #2563eb;
 }
 
-
-/* === CONTACT PRO === */
+/* === CONTACT SECTION === */
 .contact-wrapper {
   animation: fadeIn 0.6s ease;
 }
 
 .contact-left {
-  background: linear-gradient(135deg, #1e3a8a, #2563eb);
+  background: linear-gradient(135deg, #0f172a, #1e3a8a);
   color: white;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: transform 0.3s ease;
-}
-
-.contact-left:hover {
-  transform: translateY(-5px);
+  border-radius: 12px;
 }
 
 .contact-info-item i {
@@ -877,40 +872,37 @@ button.btn-info:focus-visible {
   color: white;
   padding: 8px 12px;
   transition: all 0.3s ease;
-  font-size: 0.95rem;
 }
-
-.social-btn i {
-  font-size: 1.2rem;
-}
-
 .social-btn:hover {
   background: white;
   color: #1e3a8a;
   transform: translateY(-3px);
 }
 
-/* Bouton de formulaire */
 .btn-gradient {
-  background: linear-gradient(135deg, #2563eb, #3b82f6);
+  background: linear-gradient(135deg, #2563eb, #38bdf8);
   color: white;
   border: none;
   transition: all 0.3s ease;
 }
-
 .btn-gradient:hover {
   transform: translateY(-2px);
-  background: linear-gradient(135deg, #1d4ed8, #2563eb);
+  background: linear-gradient(135deg, #1e40af, #2563eb);
 }
 
-/* Carte du formulaire */
-.contact-card {
-  position: relative;
-  z-index: 2;
-  border: 1px solid rgba(0,0,0,0.05);
+/* === Textarea custom === */
+textarea.form-control {
+  resize: none;
+  overflow-y: auto;
+  border: 2px solid rgba(0,0,0,0.1);
+  border-radius: 10px;
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+textarea.form-control:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 8px rgba(37, 99, 235, 0.3);
+}
+#charCount {
+  font-size: 0.85rem;
+  transition: color 0.3s;
 }
