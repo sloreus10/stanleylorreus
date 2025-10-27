@@ -1,5 +1,6 @@
 /*
-  competences.js — Version 3 catégories : savoir, savoir-faire, savoir-être
+  competences.js — 3 catégories (savoir, savoirFaire, savoirEtre)
+  Les langues sont intégrées dans "savoir" (catégorie Langues).
 */
 
 export const competences = {
@@ -32,7 +33,7 @@ export const competences = {
         { name: "Windows & UNIX", iconClass: "fas fa-desktop", color: "#4CAF50", value: 85 },
         { name: "Linux", icon: "https://cdn.jsdelivr.net/npm/simple-icons@7/icons/linux.svg", value: 80 },
         { name: "Windows Server", iconClass: "fab fa-windows", color: "#0078D7", value: 75 },
-        { name: "Cisco Networking (CCNA)", icon: "https://cdn.jsdelivr.net/npm/simple-icons@7/icons/cisco.svg", value: 70 },
+        { name: "Cisco (CCNA)", icon: "https://cdn.jsdelivr.net/npm/simple-icons@7/icons/cisco.svg", value: 70 },
         { name: "Cloud Computing", iconClass: "fas fa-cloud", color: "#0dcaf0", value: 65 },
         { name: "Sécurité & Fiabilité", iconClass: "fas fa-shield-alt", color: "#ff5722", value: 70 }
       ]
@@ -44,8 +45,19 @@ export const competences = {
         { name: "Git", iconClass: "fab fa-git-alt", color: "#F05032", value: 85 },
         { name: "Docker", icon: "https://cdn.jsdelivr.net/npm/simple-icons@7/icons/docker.svg", value: 65 },
         { name: "Android Studio", icon: "https://cdn.jsdelivr.net/npm/simple-icons@7/icons/androidstudio.svg", value: 75 },
-        { name: "Microsoft Office", iconClass: "fas fa-file-word", color: "#0078D4", value: 90 },
-        { name: ""}
+        { name: "Microsoft Office", iconClass: "fas fa-file-word", color: "#0078D4", value: 90 }
+      ]
+    },
+
+    // --- LANGUES intégrées ici (savoir) ---
+    {
+      title: "Langues",
+      skills: [
+        // value = pourcentage affiché dans la barre ; levelLabel = texte alternatif (affiché à côté si fourni)
+        { name: "Créole haïtien", iconClass: "fas fa-language", color: "#06b6d4", value: 100, levelLabel: "Natif" },
+        { name: "Français", iconClass: "fas fa-language", color: "#06b6d4", value: 95, levelLabel: "Bilingue" },
+        { name: "Anglais", iconClass: "fas fa-language", color: "#06b6d4", value: 80, levelLabel: "Courant" },
+        { name: "Espagnol", iconClass: "fas fa-language", color: "#06b6d4", value: 40, levelLabel: "Notions" }
       ]
     }
   ],
@@ -58,7 +70,7 @@ export const competences = {
         { name: "Bootstrap", icon: "https://cdn.jsdelivr.net/npm/simple-icons@7/icons/bootstrap.svg", value: 88 },
         { name: "WordPress", icon: "https://cdn.jsdelivr.net/npm/simple-icons@7/icons/wordpress.svg", value: 85 },
         { name: "E-commerce & CMS", iconClass: "fas fa-shopping-cart", color: "#00C853", value: 75 },
-        { name: "Applications mobiles (Android)", iconClass: "fas fa-mobile-alt", color: "#4CAF50", value: 70 }
+        { name: "Apps mobiles (Android)", iconClass: "fas fa-mobile-alt", color: "#4CAF50", value: 70 }
       ]
     },
     {
@@ -72,21 +84,21 @@ export const competences = {
       ]
     },
     {
-      title: "Community Management",
-      skills: [
-        { name: "Facebook", iconClass: "fab fa-facebook", color: "#1877F2", value: 90 },
-        { name: "TikTok", iconClass: "fab fa-tiktok", color: "#010101", value: 70 },
-        { name: "Instagram", iconClass: "fab fa-instagram", color: "#E4405F", value: 80 },
-        { name: "YouTube", iconClass: "fab fa-youtube", color: "#FF0000", value: 90 }
-      ]
-    },
-    {
       title: "Administration & maintenance",
       skills: [
         { name: "Maintenance & dépannage PC", iconClass: "fas fa-tools", color: "#2196F3", value: 85 },
         { name: "Vidéosurveillance", iconClass: "fas fa-video", color: "#E91E63", value: 70 },
         { name: "Assemblage & configuration", iconClass: "fas fa-network-wired", color: "#795548", value: 80 },
         { name: "Administration Oracle", iconClass: "fas fa-server", color: "#F44336", value: 70 }
+      ]
+    },
+    {
+      title: "Community & marketing",
+      skills: [
+        { name: "Facebook", iconClass: "fab fa-facebook", color: "#1877F2", value: 90 },
+        { name: "TikTok", iconClass: "fab fa-tiktok", color: "#010101", value: 70 },
+        { name: "Instagram", iconClass: "fab fa-instagram", color: "#E4405F", value: 80 },
+        { name: "YouTube", iconClass: "fab fa-youtube", color: "#FF0000", value: 90 }
       ]
     }
   ],
@@ -99,11 +111,11 @@ export const competences = {
         { name: "Responsable", value: 90 },
         { name: "Autonome", value: 85 },
         { name: "Organisé", value: 90 },
-        { name: "Capacité d’adaptation", value: 95 }
+        { name: "Capacité d'adaptation", value: 95 }
       ]
     },
     {
-      title: "Communication & travail d’équipe",
+      title: "Communication & travail d'équipe",
       skills: [
         { name: "Écoute active", value: 90 },
         { name: "Prise de parole", value: 80 },
@@ -121,8 +133,11 @@ export const competences = {
   ]
 };
 
+
 /* ————————————————————————————————
    Rendu graphique des barres de progression
+   - affiche levelLabel si présent (pour les langues)
+   - progressbar accessible (aria)
 ——————————————————————————————— */
 export function generateAccordion(containerId, items) {
   const container = document.getElementById(containerId);
@@ -136,26 +151,34 @@ export function generateAccordion(containerId, items) {
           ${cat.title}
         </button>
       </h2>
+
       <div id="c-${containerId}-${i}" class="accordion-collapse collapse"
-        aria-labelledby="h-${containerId}-${i}" data-bs-parent="#${containerId}">
+           aria-labelledby="h-${containerId}-${i}" data-bs-parent="#${containerId}">
         <div class="accordion-body">
-          ${cat.skills.map(skill => `
-            <div class="skill-row d-flex align-items-center">
-              <div class="skill-logo">
-                ${skill.iconClass
-                  ? `<i class="${skill.iconClass}" style="color:${skill.color || '#333'}"></i>`
-                  : skill.icon
-                    ? `<img src="${skill.icon}" alt="${skill.name}" class="img-skill">`
-                    : `<span class="logo-fallback">${skill.name.charAt(0)}</span>`}
-              </div>
-              <div class="skill-meta flex-grow-1">
-                <div class="skill-name">${skill.name}</div>
-                <div class="skill-bar" aria-valuenow="${skill.value}">
-                  <div class="skill-bar-fill" style="width:${skill.value}%;">${skill.value}%</div>
+          ${cat.skills.map(skill => {
+            const value = (typeof skill.value === 'number') ? skill.value : 0;
+            const label = skill.levelLabel ? `<small class="ms-2 text-muted">(${skill.levelLabel})</small>` : '';
+            const iconHtml = skill.iconClass
+              ? `<i class="${skill.iconClass}" style="color:${skill.color || '#666'}" aria-hidden="true"></i>`
+              : skill.icon
+                ? `<img src="${skill.icon}" alt="${skill.name}" class="img-skill" style="width:40px;height:40px;object-fit:contain">`
+                : `<span class="logo-fallback">${skill.name.charAt(0)}</span>`;
+
+            return `
+            <div class="skill-row d-flex align-items-center mb-2">
+              <div class="skill-logo me-3">${iconHtml}</div>
+              <div class="skill-meta flex-grow-1 text-start">
+                <div class="d-flex justify-content-between align-items-baseline">
+                  <div class="skill-name fw-semibold">${skill.name}</div>
+                  <div class="skill-level small text-muted">${value}% ${label}</div>
+                </div>
+                <div class="skill-bar mt-1" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${value}">
+                  <div class="skill-bar-fill" style="width:${value}%;"></div>
                 </div>
               </div>
             </div>
-          `).join('')}
+            `;
+          }).join('')}
         </div>
       </div>
     </div>
