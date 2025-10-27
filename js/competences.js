@@ -1,6 +1,6 @@
 /*
-  competences.js — 3 catégories (savoir, savoirFaire, savoirEtre)
-  Les langues sont intégrées dans "savoir" (catégorie Langues).
+  competences.js — version finale (3 catégories)
+  % affiché dans la barre de progression
 */
 
 export const competences = {
@@ -48,16 +48,13 @@ export const competences = {
         { name: "Microsoft Office", iconClass: "fas fa-file-word", color: "#0078D4", value: 90 }
       ]
     },
-
-    // --- LANGUES intégrées ici (savoir) ---
     {
       title: "Langues",
       skills: [
-        // value = pourcentage affiché dans la barre ; levelLabel = texte alternatif (affiché à côté si fourni)
-        { name: "Créole haïtien", iconClass: "fas fa-language", color: "#06b6d4", value: 100, levelLabel: "Natif" },
-        { name: "Français", iconClass: "fas fa-language", color: "#06b6d4", value: 95, levelLabel: "Bilingue" },
-        { name: "Anglais", iconClass: "fas fa-language", color: "#06b6d4", value: 80, levelLabel: "Courant" },
-        { name: "Espagnol", iconClass: "fas fa-language", color: "#06b6d4", value: 40, levelLabel: "Notions" }
+        { name: "Créole haïtien", iconClass: "fas fa-language", color: "#06b6d4", value: 100 },
+        { name: "Français", iconClass: "fas fa-language", color: "#06b6d4", value: 95 },
+        { name: "Anglais", iconClass: "fas fa-language", color: "#06b6d4", value: 80 },
+        { name: "Espagnol", iconClass: "fas fa-language", color: "#06b6d4", value: 60 }
       ]
     }
   ],
@@ -135,9 +132,7 @@ export const competences = {
 
 
 /* ————————————————————————————————
-   Rendu graphique des barres de progression
-   - affiche levelLabel si présent (pour les langues)
-   - progressbar accessible (aria)
+   Rendu graphique avec % DANS la barre
 ——————————————————————————————— */
 export function generateAccordion(containerId, items) {
   const container = document.getElementById(containerId);
@@ -156,27 +151,23 @@ export function generateAccordion(containerId, items) {
            aria-labelledby="h-${containerId}-${i}" data-bs-parent="#${containerId}">
         <div class="accordion-body">
           ${cat.skills.map(skill => {
-            const value = (typeof skill.value === 'number') ? skill.value : 0;
-            const label = skill.levelLabel ? `<small class="ms-2 text-muted">(${skill.levelLabel})</small>` : '';
+            const value = skill.value ?? 0;
             const iconHtml = skill.iconClass
-              ? `<i class="${skill.iconClass}" style="color:${skill.color || '#666'}" aria-hidden="true"></i>`
+              ? `<i class="${skill.iconClass}" style="color:${skill.color || '#666'}"></i>`
               : skill.icon
-                ? `<img src="${skill.icon}" alt="${skill.name}" class="img-skill" style="width:40px;height:40px;object-fit:contain">`
+                ? `<img src="${skill.icon}" alt="${skill.name}" class="img-skill" style="width:32px;height:32px;">`
                 : `<span class="logo-fallback">${skill.name.charAt(0)}</span>`;
 
             return `
-            <div class="skill-row d-flex align-items-center mb-2">
-              <div class="skill-logo me-3">${iconHtml}</div>
-              <div class="skill-meta flex-grow-1 text-start">
-                <div class="d-flex justify-content-between align-items-baseline">
-                  <div class="skill-name fw-semibold">${skill.name}</div>
-                  <div class="skill-level small text-muted">${value}% ${label}</div>
-                </div>
-                <div class="skill-bar mt-1" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${value}">
-                  <div class="skill-bar-fill" style="width:${value}%;"></div>
+              <div class="skill-row d-flex align-items-center mb-2">
+                <div class="skill-logo me-3">${iconHtml}</div>
+                <div class="skill-meta flex-grow-1">
+                  <div class="skill-name mb-1 fw-semibold">${skill.name}</div>
+                  <div class="skill-bar" aria-valuenow="${value}">
+                    <div class="skill-bar-fill" style="width:${value}%;">${value}%</div>
+                  </div>
                 </div>
               </div>
-            </div>
             `;
           }).join('')}
         </div>
