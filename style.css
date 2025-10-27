@@ -412,10 +412,11 @@ button.btn-info:focus-visible {
 .skill-bar {
   width: 100%;
   height: 20px;
-  background: rgba(48, 41, 41, 0.06);
+  background: rgba(48, 41, 41, 0.08);
   border-radius: 10px;
   overflow: hidden;
   position: relative;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .skill-bar-fill {
@@ -424,11 +425,22 @@ button.btn-info:focus-visible {
   align-items: center;
   justify-content: center;
   color: #fff;
-  font-weight: 700;
-  background: linear-gradient(90deg, #0dcaf0, #38d8ff);
-  transition: width 900ms ease-in-out;
+  font-weight: 600;
+  font-size: 0.85rem;
+  background: linear-gradient(90deg, #0dcaf0, #38d8ff, #0dcaf0);
+  background-size: 200% 100%;
+  border-radius: 10px;
+  transition: width 900ms ease-in-out, background-position 2s linear;
+  animation: shimmer 3s linear infinite;
   white-space: nowrap;
 }
+
+/* Animation légère de mouvement dans le gradient */
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
 
 /* Divider between skills */
 .skill-divider {
