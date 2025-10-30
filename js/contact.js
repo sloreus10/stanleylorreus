@@ -33,6 +33,15 @@ export function initContact(containerId = "contactContainer") {
             <a href="https://github.com/sloreus10" target="_blank" class="social-btn github">
               <i class="bi bi-github"></i><span>@sloreus10</span>
             </a>
+            <a href="https://facebook.com/sloreastar" target="_blank" class="social-btn facebook">
+              <i class="bi bi-facebook"></i><span>@sloresatar</span>
+            </a>
+            <a href="https://instagram.com/sloreastar_47" target="_blank" class="social-btn istagram">
+              <i class="bi bi-instagram"></i><span>@sloreastar_47</span>
+            </a>
+            <a href="https://tiktok.com/sloreus10" target="_blank" class="social-btn tiktok">
+              <i class="bi bi-tiktok"></i><span>@sloreastar</span>
+            </a>
           </div>
         </div>
 
