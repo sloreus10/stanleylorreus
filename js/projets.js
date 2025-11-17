@@ -1,44 +1,138 @@
 export const projets = [
+
+  /* ———  PROJETS ORIENTÉS COMMUNICATION  ——— */
+
+  {
+    title: "Campagne sur les réseaux sociaux",
+    period: "2024",
+    type: "Bénévolat",
+    icon: "📣",
+    image: "assets/img/projets/socialMedia.jpg",
+    technologies: ["Canva", "Meta Business Suite", "Photoshop"],
+    description: "Conception d’une campagne sur les réseaux sociaux avec des messages clés pour sensibiliser les gens à s'inscrire à une formation.",
+    skills: ["Stratégie de communication", "Rédaction", "Création graphique", "Planification"]
+  },
+
+  {
+    title: "Affiche & identité visuelle – Projet Com",
+    period: "2025",
+    type: "Académique",
+    icon: "🎨",
+    image: "assets/img/projets/creationGraphiques.jpg",
+    technologies: ["Illustrator", "Photoshop"],
+    description: "Création des affiches publicitaires dans le cadre des projets académiques.",
+    skills: ["Print", "Identité visuelle", "Conception graphique", "Analyse de cible"]
+  },
+
+  {
+    title: "Podcast – Projet BTS",
+    period: "2025",
+    type: "Académique",
+    icon: "🎧",
+    image: "assets/img/projets/podcast.jpg",
+    technologies: ["FL Studio", "Canva"],
+    description: "Réalisation des podcasts : écriture des script, enregistrement, habillage sonore et montage.",
+    skills: ["Production audio", "Écriture", "Création de message", "Techniques radio"]
+  },
+
+  /* ——— CRÉATION VISUELLE ——— */
+
+  {
+    title: "Créations graphiques : logos & visuels",
+    period: "2020 — 2025",
+    type: "Personnel / Bénévolat",
+    icon: "🖌️",
+    image: "assets/img/projets/creationGraphiques.jpg",
+    technologies: ["Photoshop", "Illustrator", "Canva", "After Effects"],
+    description: "Réalisation de logos, flyers, certificats, bannières et mini-vidéos pour des particuliers et des projets personnels.",
+    skills: ["Identité visuelle", "Édition graphique", "Créativité"]
+  },
+
+  /* ——— STORYTELLING & CONTENU ——— */
+
+  {
+    title: "Mini-série : histoires de marques",
+    period: "2025",
+    type: "Académique",
+    icon: "📖",
+    image: "assets/img/projets/portfolio.png",
+    technologies: ["Canva", "Premiere Pro", "Photoshop", "Illustrator"],
+    description: "Série de contenus courts alliant storytelling, design et veille pour raconter l’évolution stratégique de grandes marques.",
+    skills: ["Storytelling", "Veille", "Montage vidéo", "Podcast", "Stratégie éditoriale"]
+  },
+
+  /* ——— PÉDAGOGIE & IMPACT ——— */
+
+  {
+    title: "Sensibilisation au numérique pour jeunes",
+    period: "2020 — 2024",
+    type: "Bénévolat",
+    icon: "📚",
+    image: "assets/img/projets/socialMedia1.jpg",
+    technologies: ["Microsoft Office", "Google Workspace", "Windows", "Canva"],
+    description: "Création et animation d’ateliers d’initiation au numérique pour accompagner des jeunes dans leurs premiers usages digitaux.",
+    skills: ["Pédagogie", "Communication orale", "Vulgarisation", "Animation"]
+  },
+
+  /* ——— DÉVELOPPEMENT & OUTILS DIGITAUX ——— */
+
   {
     title: "Portfolio personnel",
     period: "2025",
     type: "Personnel",
     icon: "👤",
-    image: "assets/img/projets/portfolio.png",
+    image: "assets/img/projets/dev.jpg",
     technologies: ["React", "CSS", "HTML", "JavaScript"],
-    description: "Portfolio développé en React avec animations, responsive design et showcase de projets.",
-    skills: ["React", "Responsive Design", "Animations", "UI/UX"]
+    description: "Création d’un portfolio moderne avec animations, responsive design et interface pensée pour valoriser mes projets.",
+    skills: ["React", "UI/UX", "Responsive Design", "Animations"]
   },
+
   {
     title: "Application de gestion de tâches",
     period: "2024",
-    type: "Académique",
+    type: "Personnel",
     icon: "🎓",
-    image: "assets/img/projets/todoapp.png",
+    image: "assets/img/projets/taches.jpg",
     technologies: ["JavaScript", "PHP", "MySQL"],
-    description: "Application pour gérer les tâches et projets avec interface intuitive.",
-    skills: ["Gestion de base de données", "PHP", "JS", "UI/UX"]
+    description: "Conception d’une application intuitive pour organiser tâches et projets, avec espace de gestion et base de données.",
+    skills: ["Backend", "Base de données", "JavaScript", "UI/UX"]
   },
+
   {
     title: "Site e-commerce fictif",
     period: "2023",
-    type: "Académique",
-    icon: "🎓",
-    image: "assets/img/projets/ecommerce.png",
-    technologies: ["HTML", "CSS", "JavaScript", "Bootstrap"],
-    description: "Catalogue, panier et paiement simulé avec responsive design.",
-    skills: ["Développement Web", "Bootstrap", "UI/UX", "JavaScript"]
+    type: "Personnel",
+    icon: "🛒",
+    image: "assets/img/projets/ecommerce.jpg",
+    technologies: ["HTML", "CSS", "JavaScript", "Bootstrap", "Laravel"],
+    description: "Création d’un mini-site e-commerce incluant catalogue, panier et système de paiement simulé.",
+    skills: ["Développement Web", "Laravel", "Architecture MVC"]
   },
+
   {
     title: "Application mobile météo",
     period: "2023",
     type: "Personnel",
-    icon: "👤",
+    icon: "🌦️",
     image: "assets/img/projets/weather.png",
     technologies: ["React Native", "API", "JSON"],
-    description: "Application mobile pour consulter la météo en temps réel.",
+    description: "App mobile affichant la météo en temps réel grâce à une API externe et une interface mobile légère.",
     skills: ["React Native", "API", "Design mobile"]
+  },
+
+  /* ——— EXPÉRIENCE PROFESSIONNELLE INFORMATIQUE ——— */
+
+  {
+    title: "Système automatisé Excel/VBA (post-urgence)",
+    period: "2016",
+    type: "Professionnel",
+    icon: "🏛️",
+    image: "assets/img/projets/developper1.jpg",
+    technologies: ["Excel", "VBA"],
+    description: "Automatisation du traitement de centaines de données collectées après l'ouragan Matthew pour accélérer l’analyse des données.",
+    skills: ["Analyse", "Automatisation", "Gestion de données", "Rigueur"]
   }
+
 ];
 
 export function initProjects(containerId = "projets") {

@@ -57,7 +57,8 @@ export const competences = {
         { name: "Bootstrap", icon: "https://cdn.jsdelivr.net/npm/simple-icons@7/icons/bootstrap.svg", value: 88 },
         { name: "WordPress", icon: "https://cdn.jsdelivr.net/npm/simple-icons@7/icons/wordpress.svg", value: 85 },
         { name: "E-commerce & CMS", iconClass: "fas fa-shopping-cart", color: "#00C853", value: 75 },
-        { name: "Applications mobiles (Android)", iconClass: "fas fa-mobile-alt", color: "#4CAF50", value: 70 }
+        { name: "Applications mobiles (Android)", iconClass: "fas fa-mobile-alt", color: "#4CAF50", value: 70 },
+        { name: "Laravel",  icon: "https://cdn.jsdelivr.net/npm/simple-icons@7/icons/laravel.svg", value: 85 }
       ]
     },
     {
