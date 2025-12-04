@@ -40,7 +40,7 @@ export function initContact(containerId = "contactContainer") {
           <h5 class="text-light fw-semibold mb-3">Réseaux sociaux</h5>
           <div class="social-icons d-flex flex-wrap gap-3">
             <a
-              href="https://linkedin.com/in/sloreus10"
+              href="https://www.linkedin.com/in/stanley-lorr%C3%A9us-98b89b62/"
               target="_blank"
               rel="noopener noreferrer"
               class="social-btn linkedin"
@@ -80,7 +80,7 @@ export function initContact(containerId = "contactContainer") {
               <span>@sloreastar_47</span>
             </a>
             <a
-              href="https://tiktok.com/sloreus10"
+              href="https://www.tiktok.com/@sloreastar?_r=1&_t=ZS-91x312YU5Q2"
               target="_blank"
               rel="noopener noreferrer"
               class="social-btn tiktok"
